@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+      .dropdown ul{
+        text-align: center;
+        width: 100%;
+      }
+      #table_div{
+       margin-right:50px;
+       margin-top:100px;
+       float: right;
+      }
+      #cvs{
+        position: relative;
+        top: -300px;
+        margin-left: 150px
+      }
+      #chart{
+        position: relative;
+        height: 300px;
+        width: 100%;
+      }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>粮仓温度监控系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./libs/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./libs/bootstrap-3.3.7/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./libs/bootstrap-3.3.7/docs/assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="./js/Chart.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">粮仓温度监控系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./admin/">管理员入口</a></li>
+<!--             <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+<!--              <div class="dropdown">
+  <button class="btn btn-info dropdown-toggle btn-block" type="button" data-toggle="dropdown">Dropdown Example
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+  </ul>
+</div>  -->
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">ABA反三廒间</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block"> <a href="./cube1">廒间A1</a></button>
+         
+          <button class="btn btn-defalut btn-block">廒间B1</button>
+          <button class="btn btn-defalut btn-block">廒间A2</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">AA反双廒间[1]</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block">A1-1</button>
+          <button class="btn btn-defalut btn-block">A1-2</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">AA反双廒间[2]</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block">A2-1</button>
+          <button class="btn btn-defalut btn-block">A2-2</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">AA反双廒间[3]</a>
+        </h4>
+      </div>
+      <div id="collapse4" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block">A3-1</button>
+          <button class="btn btn-defalut btn-block">A3-2</button>
+        </div>
+      </div>
+    </div>     <!-- 手风琴下滑菜单 -->
+  </div> 
+<!--             <li><a href="cube">Cube <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul> -->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div><h1 class="text-center">ABA_A1</h1></div>
+          <h2>历史曲线:</h2>
+          <div id="chart"><canvas id="myChart" width="100" height="100"></canvas></div>
+          <h2>粮仓示意图:</h2>
+          <canvas width="600" height="1500" id='cvs'></canvas>
+           
+            <div id="table_div">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>廒间编号</th>
+                  <th>监测点温度</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td id="ob_tem">未选定</td>
+              </tbody>              
+              <thead>
+                <tr>
+                  <th>廒间平均粮温</th>
+                  <th>廒间仓湿</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>
+              <thead>
+                <tr>
+                  <th>廒间温度</th>
+                  <th>粮食存量</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td>1</td>                
+              </tbody>        
+               <thead>
+                <tr>
+                  <th>设定湿度上限</th>
+                  <th>设定湿度下限</th>
+                </tr>
+              </thead>
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>              
+               <thead>
+                <tr>
+                  <th>设定湿度上限</th>
+                  <th>设定湿度下限</th>
+                </tr>
+              </thead>            
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>       
+               <thead>
+                <tr>
+                  <th>风机运行状态[1]</th>
+                  <th>风机运行状态[2]</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>
+               <thead>
+                <tr>
+                  <th>风机运行状态[3]</th>
+                  <th>风机运行状态[4]</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>
+                <thead>
+                <tr>
+                  <th>交流减速电机[1]</th>
+                  <th>交流减速电机[2]</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>
+              <td><hr></td>
+              <td><hr></td>
+                 <thead>
+                <tr>
+                  <th>第[1]层平均粮温</th>
+                  <th>第[2]层平均粮温</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>
+                <thead>
+                <tr>
+                  <th>第[3]层平均粮温</th>
+                  <th>第[4]层平均粮温</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+                <td>1</td>
+              </tbody>
+                <thead>
+                <tr>
+                  <th>第[5]层平均粮温</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>1</td>
+              </tbody>                
+            </table>          
+            </div>
+       <!--    <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+          </div>
+ -->
+          
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery-3.3.1.js"></script>
+    <script>window.jQuery || document.write('<script src="./libs/bootstrap-3.3.7/docs/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./libs/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="./libs/bootstrap-3.3.7/docs/assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./libs/bootstrap-3.3.7/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="./js/main_cube1.js"></script>
+  </body>
+</html>

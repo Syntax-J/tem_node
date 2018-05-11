@@ -1,0 +1,318 @@
+<html>
+<head>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+canvas{
+position: absolute;
+background:white;
+}
+div{
+right:0;
+position: absolute;
+display: block;
+ z-index: 9999;
+border:2px solid black;
+float:left;
+clear: right;
+}
+#chart{
+ position: relative;
+ height: 250px;
+ width: 600px;
+}
+#table_div{
+	margin-right: 480px;
+	position: fixed;
+}
+#mouse_div{
+	padding: 1px;
+	right: 0;
+	top: 0;
+	border-radius: 15px;
+	color:red;
+}
+tr{
+	text-align: center;
+}
+hr{
+	height: 2px;
+	background: black;
+	width: 100%;
+}
+</style>
+<script src="./js/Chart.min.js"></script>
+</head>
+<body>
+	<div id="table_div">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>廒间编号</th>
+                  <th>监测点温度</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td id="ob_tem">未选定</td>
+              </tbody>             	
+              <thead>
+                <tr>
+                  <th>廒间平均粮温</th>
+                  <th>廒间仓湿</th>
+                </tr>
+              </thead>
+              <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+              <thead>
+                <tr>
+                  <th>廒间温度</th>
+                  <th>粮食存量</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>              	
+              </tbody>
+              <td><hr></td>
+              <td><hr></td>           
+               <thead>
+                <tr>
+                  <th>设定湿度上限</th>
+                  <th>设定湿度下限</th>
+                </tr>
+              </thead>
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>              
+               <thead>
+                <tr>
+                  <th>设定湿度上限</th>
+                  <th>设定湿度下限</th>
+                </tr>
+              </thead>            
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+              <td><hr></td>
+              <td><hr></td>            
+               <thead>
+                <tr>
+                  <th>风机运行状态[1]</th>
+                  <th>风机运行状态[2]</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+               <thead>
+                <tr>
+                  <th>风机运行状态[3]</th>
+                  <th>风机运行状态[4]</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+                <thead>
+                <tr>
+                  <th>交流减速电机[1]</th>
+                  <th>交流减速电机[2]</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+              <td><hr></td>
+              <td><hr></td>
+                 <thead>
+                <tr>
+                  <th>第[1]层平均粮温</th>
+                  <th>第[2]层平均粮温</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+                <thead>
+                <tr>
+                  <th>第[3]层平均粮温</th>
+                  <th>第[4]层平均粮温</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              	<td>1</td>
+              </tbody>
+                <thead>
+                <tr>
+                  <th>第[5]层平均粮温</th>
+                </tr>
+              </thead> 
+               <tbody>
+              	<td>1</td>
+              </tbody>                
+            </table>          
+            </div>
+<canvas width="600" height="1500" id='cvs'></canvas>
+<div id="chart"><canvas id="myChart" width="100" height="100"></canvas></div>
+
+<script type="text/javascript">
+//chart.js
+var date=new Date();
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["X","X","X","X","X","X","X"],
+        datasets: [{
+            label: '历史温度',
+            data: [18, 19, 20, 21, 20, 19],
+            backgroundColor: [
+                'rgba(255, 255, 255, 0.2)',
+                'rgba(255, 255, 255, 0.2)',
+                'rgba(255, 255, 255, 0.2)',
+
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+    	maintainAspectRatio:false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+//cube
+var server_data='<%=server_data%>';
+var reg=new RegExp('&#34;','g');
+server_data=server_data.replace(reg,'');
+ server_data=eval('('+server_data+')');
+var sr=2**0.5;
+var canvas=document.getElementById('cvs');
+// canvas.width=document.documentElement.clientWidth;
+var cvs=canvas.getContext('2d');
+var mid_x=canvas.width/2;
+var mid_y=canvas.height/2;
+var temp_x=0;
+var temp_y=0;
+var arr={};
+var num_points=1;
+var rect=canvas.getBoundingClientRect();
+var ob_tem=document.getElementById('ob_tem');
+var mouse_div=document.getElementById('mouse_div');
+function draw(x,y,h,x_d,y_d,h_d) {
+	function point(x,y) {
+		cvs.beginPath();
+		cvs.rect(x-7,y-7,14,14);
+		//cvs.closePath();
+		cvs.stroke();
+     //cvs.fill();
+	}
+	function record(x,y) {
+		arr['x'+num_points]=x;
+		arr['y'+num_points]=y;
+		 num_points++;
+	}
+cvs.translate(mid_x-y/2-sr*x/8,mid_y-h/2+sr*x/8);//left-top corrner in the front face(0,0)
+cvs.moveTo(0,0);
+cvs.fillStyle='rgba(255,0,0,1)';
+temp_x+=0;
+temp_y+=h;
+cvs.lineTo(temp_x,temp_y);
+temp_x+=y;
+cvs.lineTo(temp_x,temp_y);
+temp_x+=sr*x/4;
+temp_y-=sr*x/4;
+cvs.lineTo(temp_x,temp_y);
+temp_y-=h;
+cvs.lineTo(temp_x,temp_y);
+temp_x-=y;
+cvs.lineTo(temp_x,temp_y);
+temp_x-=sr*x/4;
+temp_y+=sr*x/4;
+cvs.lineTo(temp_x,temp_y);
+temp_x+=y;
+cvs.lineTo(temp_x,temp_y);
+temp_y+=h;
+cvs.lineTo(temp_x,temp_y);
+temp_y-=h;
+cvs.moveTo(temp_x,temp_y);
+temp_x+=sr*x/4;
+temp_y-=sr*x/4;
+cvs.lineTo(temp_x,temp_y);
+temp_x-=y;
+cvs.moveTo(temp_x,temp_y);
+temp_y+=h;
+cvs.lineTo(temp_x,temp_y);
+temp_x-=sr*x/4;
+temp_y+=sr*x/4;
+cvs.lineTo(temp_x,temp_y);
+temp_x+=sr*x/4;
+temp_y-=sr*x/4;
+cvs.moveTo(temp_x,temp_y);
+temp_x+=y;
+cvs.lineTo(temp_x,temp_y);
+cvs.stroke();
+for(let t=1;t<=h_d;t++){
+for (let i=1;i<=y_d;i++) {
+	for(let j=1;j<=x_d;j++){
+		record(i*y/(y_d+1)+j*sr*x/(4*(x_d+1)),(t*h/(h_d+1))-sr*x/(4*(x_d+1))*j)	
+	}
+	
+}
+}
+for (let i=1;i<=num_points;i++) {
+	point(arr['x'+i],arr['y'+i]);
+}
+canvas.onmousemove=function(e){
+for (let i=1;i<=num_points;i++) {
+cvs.clearRect(arr['x'+i]-8,arr['y'+i]-8,16,16);
+point(arr['x'+i],arr['y'+i]);
+ var x=e.offsetX,y=e.offsetY;
+
+// console.log(x,y);
+if(cvs.isPointInPath(x,y)){
+cvs.fillStyle='purple';
+if(i<=server_data.length){
+
+	ob_tem.innerText=(server_data[i-1].temperature)+'℃';
+
+}
+
+}else{
+cvs.fillStyle='#36A2EB';
+}
+cvs.fill();
+}
+}
+}
+draw(400,400,800,6,8,5);
+</script>
+
+</body>
+<ml>

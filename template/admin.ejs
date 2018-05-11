@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+    .cus_btn{
+      margin-left: 5px;
+      color:red;
+      border:1px solid red;
+      border-radius: 5px;
+      background: white;
+      transition: 0.5s;
+    }
+    .cus_btn:hover{
+      background: red;
+      color:white;
+    }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>粮仓温度监控系统后台数据管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../libs/bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../libs/bootstrap-3.3.7/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/admin.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../libs/bootstrap-3.3.7/docs/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+<!--           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> -->
+          <a class="navbar-brand" href="#">粮仓温度监控系统后台数据管理</a>
+        </div>
+<!--         <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./admin/login">管理员入口</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div> -->
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">ABA反三廒间参数设置</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse" onclick="change(event)">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block" id="btn_ABA_A1">廒间A1</button>
+          <button class="btn btn-defalut btn-block" id="btn_ABA_B">廒间B1</button>
+          <button class="btn btn-defalut btn-block" id="btn_ABA_A2">廒间A2</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">AA反双廒间[1]参数设置</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block">A1-1</button>
+          <button class="btn btn-defalut btn-block">A1-2</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">AA反双廒间[2]参数设置</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block">A2-1</button>
+          <button class="btn btn-defalut btn-block">A2-2</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">AA反双廒间[3]参数设置</a>
+        </h4>
+      </div>
+      <div id="collapse4" class="panel-collapse collapse">
+        <div class="panel-body">
+          <button class="btn btn-defalut btn-block">A3-1</button>
+          <button class="btn btn-defalut btn-block">A3-2</button>
+        </div>
+      </div>
+    </div>     <!-- 手风琴下滑菜单 -->
+    <!-- <h4 class="panel-title text-center"> --><button class="btn btn-success btn-block btn-md" onclick="log_check()">登录日志</button><!-- </h4> -->
+  </div> 
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<% for(let i=0;i<3;i++){%>
+<div style="display: none" id="con_<%=i%>" class="con_div">
+         <% if(i==0){%>
+         <h2 class="sub-header">ABA_A1参数设置</h2>
+         <%}%>
+         <% if(i==1){%>
+         <h2 class="sub-header">ABA_B1参数设置</h2>
+         <%}%>
+         <% if(i==2){%>
+         <h2 class="sub-header">ABA_A2参数设置</h2>
+         <%}%>
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>温度上限(℃)</th>
+                  <th>温度下限(℃)</th>
+                  <th>湿度上限(℃)</th>
+                  <th>湿度下限(℃)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="settings(event)">
+                  <td><span id="max_tem_<%=i%>"><%=server_data[i][0].max_tem%></span><button class="cus_btn" id="ttop_<%=i%>">修改设置</button></td>
+                  <td><span id="min_tem_<%=i%>"><%=server_data[i][0].min_tem%></span><button class="cus_btn" id="tbom_<%=i%>">修改设置</button></td>
+                  <td><span id="max_hum_<%=i%>"><%=server_data[i][0].max_hum%></span><button class="cus_btn" id="htop_<%=i%>">修改设置</button></td>
+                  <td><span id="min_hum_<%=i%>"><%=server_data[i][0].min_hum%></span><button class="cus_btn" id="hbom_<%=i%>">修改设置</button></td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+
+</div>
+<%}%>
+<div id="con_log" style="display: none">
+<h2 class="sub-header">登录日志</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <% for(let i=0;i<server_data[3].length;i++){%>
+                <tr>
+                  <th>编号</th>
+                  <th>登录账户</th>
+                  <th>登录时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%=server_data[3][i].ID%></td>
+                  <td><%=server_data[3][i].User%></td>
+                  <td><%=server_data[3][i].Time%></td>
+                </tr>
+                <%}%>
+              </tbody>
+            </table>
+          </div>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-3.3.1.js"></script>
+    <script>window.jQuery || document.write('<script src="./libs/bootstrap-3.3.7/docs/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../libs/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../libs/bootstrap-3.3.7/docs/assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../libs/bootstrap-3.3.7/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+      function settings(e) {
+        var targetName=e.target.nodeName;
+        if (targetName=='BUTTON') {
+          var id=e.target.id;
+          var id=id.split('_')
+          switch(id[0]){
+            case 'ttop':
+            var settings=prompt("请输入数据");
+            if(settings){
+              $.ajax({
+              url:'/admin/settings/ttop',
+              type:'POST',
+              data:{
+                flag:id[1],
+                settings:settings
+              },
+              success:function(res){
+               document.getElementById('max_tem_'+id[1]).innerText=settings;
+               alert(res);
+              }
+            })
+            }
+            break;
+            case 'tbom':
+            var settings=prompt("请输入数据");
+            if(settings){
+              $.ajax({
+              url:'/admin/settings/tbom',
+              type:'POST',
+              data:{
+                flag:id[1],
+                settings:settings
+              },
+              success:function(res){
+               document.getElementById('min_tem_'+id[1]).innerText=settings;
+               alert(res);
+              }
+            })
+            }
+            break;
+            case 'htop':
+            var settings=prompt("请输入数据");
+            if(settings){
+              $.ajax({
+              url:'/admin/settings/htop',
+              type:'POST',
+              data:{
+                flag:id[1],
+                settings:settings
+              },
+              success:function(res){
+               document.getElementById('max_hum_'+id[1]).innerText=settings;
+               alert(res);
+              }
+            })
+            }
+            break;
+            case 'hbom':
+            var settings=prompt("请输入数据");
+            if(settings){
+              $.ajax({
+              url:'/admin/settings/hbom',
+              type:'POST',
+              data:{
+                flag:id[1],
+                settings:settings
+              },
+              success:function(res){
+               document.getElementById('min_hum_'+id[1]).innerText=settings;
+               alert(res);
+              }
+            })
+            }
+            break;
+          }
+        }
+      }
+      function change(e){
+        var targetName=e.target.nodeName;
+        if (targetName=='BUTTON') {
+           var id=e.target.id;
+           var con_div=document.getElementsByClassName('con_div');
+           for (let i=0;i<=con_div.length-1;i++){
+            con_div[i].style.display="none";
+           }
+           document.getElementById('con_log').style.display="none";
+          switch(id){
+            case 'btn_ABA_A1':
+            var con_div=document.getElementsByClassName('con_div');
+            document.getElementById('con_0').style.display="block";  
+            break;
+            case 'btn_ABA_B':
+            document.getElementById('con_1').style.display="block";
+            break;
+            case 'btn_ABA_A2':
+            document.getElementById('con_2').style.display="block";
+            break;
+      }
+    }
+  }
+function log_check(){
+  var con_div=document.getElementsByClassName('con_div');
+           for (let i=0;i<=con_div.length-1;i++){
+            con_div[i].style.display="none";
+           }
+  document.getElementById('con_log').style.display="block";
+}
+    </script>
+  </body>
+</html>
