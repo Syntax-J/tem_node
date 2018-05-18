@@ -18,12 +18,26 @@
       #cvs{
         position: relative;
         top: -300px;
-        margin-left: 150px
+        left: -160px;
+        margin-left: 120px
       }
       #chart{
         position: relative;
         height: 300px;
         width: 100%;
+      }
+      .tab{
+        margin-bottom: 1px;
+        display: block;
+         position: relative;
+         border-radius: 15px;
+         border: 3px solid #655;
+      }
+      #table_div{
+        right: -45px;
+        position: absolute;
+        top:425px;
+
       }
     </style>
     <meta charset="utf-8">
@@ -72,9 +86,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="./admin/">管理员入口</a></li>
-<!--             <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li> -->
+
           </ul>
         </div>
       </div>
@@ -84,15 +96,6 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-<!--              <div class="dropdown">
-  <button class="btn btn-info dropdown-toggle btn-block" type="button" data-toggle="dropdown">Dropdown Example
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">HTML</a></li>
-    <li><a href="#">CSS</a></li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
-</div>  -->
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -101,11 +104,10 @@
         </h4>
       </div>
       <div id="collapse1" class="panel-collapse collapse">
-        <div class="panel-body">
-          <button class="btn btn-defalut btn-block"> <a href="./cube1">廒间A1</a></button>
-         
-          <button class="btn btn-defalut btn-block">廒间B1</button>
-          <button class="btn btn-defalut btn-block">廒间A2</button>
+        <div class="panel-body" onclick="show_con(event)">
+          <button class="btn btn-defalut btn-block" id="ABA_A1">廒间A1</button>         
+          <button class="btn btn-defalut btn-block" id="ABA_B1">廒间B1</button>
+          <button class="btn btn-defalut btn-block" id="ABA_A2">廒间A2</button>
         </div>
       </div>
     </div>
@@ -167,34 +169,131 @@
           </ul> -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <div><h1 class="text-center">ABA_A1</h1></div>
+ <div><h2 class="text-center" id="room_title">廒间编号:ABA_A1</h2>
+ </div>
           <h2>历史曲线:</h2>
           <div id="chart"><canvas id="myChart" width="100" height="100"></canvas></div>
+
           <h2>粮仓示意图:</h2>
           <canvas width="600" height="1500" id='cvs'></canvas>
-           
-            <div id="table_div">
+             <div id="table_div">
+              <div class="tab" id="tab1">
             <table class="table table-striped">
+                <h3 class="text-center">廒间参数状态</h3>
                 <thead>
                 <tr>
-                  <th>廒间编号</th>
                   <th>监测点温度</th>
+                  <th>廒间平均粮温</th>
+                  <th>廒间仓湿</th>
+                  <th>通风状态</th>
+                  <th>通风建议</th>
+                  <th>仓外气温</th>
+                  <th>仓外气湿</th>
+                  <th>储粮信息</th>
+
+                </tr>
+              </thead> 
+               <tbody>
+                <td id="ob_tem">未选定</td>
+                <td>1</td>
+                <td>1</td>
+                <td>未通风</td>
+                <td>无需通风</td>
+                <td>1</td>
+                <td>1</td>
+                <td>小麦</td>
+              </tbody>
+              </table>
+              </div> 
+              <div class="tab" id="tab2">
+            <table class="table table-striped">
+                <h3 class="text-center">粮层平均温度</h3>
+                <thead>
+                <tr>
+                  <th>第[1]层</th>
+                  <th>第[2]层</th>
+                  <th>第[3]层</th>
+                  <th>第[4]层</th>
+                  <th>第[5]层</th>
                 </tr>
               </thead> 
                <tbody>
                 <td>1</td>
-                <td id="ob_tem">未选定</td>
-              </tbody>              
-              <thead>
-                <tr>
-                  <th>廒间平均粮温</th>
-                  <th>廒间仓湿</th>
-                </tr>
-              </thead>
-              <tbody>
+                <td>1</td>
+                <td>1</td>
                 <td>1</td>
                 <td>1</td>
               </tbody>
+              </table>
+              </div> 
+              <div class="tab" id="tab2">
+            <table class="table table-striped">
+                <h3 class="text-center">廒间电机状态</h3>
+                <thead>
+                <tr>
+                  <th>[1]号电机</th>
+                  <th>[2]号电机</th>
+                  <th>[3]号电机</th>
+                  <th>[4]号电机</th>
+                  <th>[1]号交流减速电机</th>
+                  <th>[2]号交流减速电机</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+              </tbody>
+              </table>
+              </div> 
+              <div class="tab" id="tab2">
+            <table class="table table-striped">
+                <h3 class="text-center">廒间窗户状态</h3>
+                <thead>
+                <tr>
+                  <th>[1]号窗</th>
+                  <th>[2]号窗</th>
+                  <th>[3]号窗</th>
+                  <th>[4]号窗</th>
+                  <th>[5]号窗</th>
+                  <th>[6]号窗</th>
+                  <th>[7]号窗</th>
+                  <th>[8]号窗</th>
+                  <th>[9]号窗</th>
+                  <th>[10]号窗</th>
+                  <th>[11]号窗</th>
+                </tr>
+              </thead> 
+               <tbody>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>关闭</td>
+              </tbody>
+              </table>
+              </div> 
+            </div>
+
+             <!--  <table>          
+                <tr>
+                  
+                 
+                </tr>
+                
+             
+             </table>
+             </div>
+             <table>
               <thead>
                 <tr>
                   <th>廒间温度</th>
@@ -285,36 +384,9 @@
                <tbody>
                 <td>1</td>
               </tbody>                
-            </table>          
+            </table>        -->
             </div>
-       <!--    <h1 class="page-header">Dashboard</h1>
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
- -->
-          
-
-        </div>
       </div>
     </div>
 
@@ -328,6 +400,33 @@
     <script src="./libs/bootstrap-3.3.7/docs/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./libs/bootstrap-3.3.7/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="./js/main_cube1.js"></script>
+    <script src="./js/_cube1.js"></script>
+    <script>
+         var server_data='<%=server_data%>';
+ var reg=new RegExp('&#34;','g');
+  server_data=server_data.replace(reg,'');
+   server_data=eval('('+server_data+')');
+      function show_con(e){
+        var targetName=e.target.nodeName;
+        if (targetName=='BUTTON') {
+           var id=e.target.id;
+           var con_div=document.getElementsByClassName('Con_Room');
+           for (let i=0;i<=con_div.length-1;i++){
+            con_div[i].style.display="none";
+           }
+          switch(id){
+            case 'ABA_A1':
+            document.getElementById('room_title').innerText="廒间编号:ABA_A1";  
+            break;
+            case 'ABA_B1':
+            document.getElementById('room_title').innerText="廒间编号:ABA_B1";  
+            break;
+            case 'ABA_A2':
+            document.getElementById('room_title').innerText="廒间编号:ABA_A2";  
+            break;
+      }
+    }
+  }
+    </script>
   </body>
 </html>

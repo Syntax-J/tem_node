@@ -42,12 +42,6 @@ var myChart = new Chart(ctx, {
 
 
 
-
-//cube
-// var server_data='<%=server_data%>';
-// var reg=new RegExp('&#34;','g');
-// server_data=server_data.replace(reg,'');
-//  server_data=eval('('+server_data+')');
 var sr=2**0.5;
 var canvas=document.getElementById('cvs');
 // canvas.width=document.documentElement.clientWidth;
@@ -149,3 +143,6 @@ cvs.fill();
 }
 }
 draw(400,400,800,6,8,5);
+
+
+
